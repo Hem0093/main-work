@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ony for my beta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #ffb8b8;
+            --accent: #ffd166;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffe8e8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .birthday-card {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .card-header {
+            background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .cake {
+            width: 150px;
+            height: 150px;
+            background: url('https://placehold.co/150x150') no-repeat center center;
+            background-size: contain;
+            margin: 0 auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            opacity: 0;
+        }
+        
+        .message-section {
+            padding: 2rem;
+        }
+        
+        .wish-message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .interactive-btn {
+            background: var(--accent);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .interactive-btn:active {
+            transform: translateY(0);
+        }
+        
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            text-align: center;
+        }
+        
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .memory-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .memory-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .show {
+            max-height: 500px;
+            padding: 1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .cake {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .wish-message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-card">
+        <div class="card-header">
+            <h1 class="title">Baccha!</h1>
+            <div class="cake" alt="Colorful birthday cake with candles"></div>
+        </div>
+        
+        <div class="message-section">
+            <p class="wish-message">
+               mere pyare se golu molu beta kaise ho thik to ho na vaise aapko pta hi h m kuch na kuch krta raheta  hu to mne ye link aapke liye bnai h sirf aapke liye beta ye aapko thik to lga na ek kamm kro aapke liye gift h beta niche show memory pr click kro 
+            </p>
+            
+            <button class="interactive-btn" id="showMemories">Show Memories</button>
+            
+            <div class="hidden-content" id="memoriesContent">
+                <h2 style="margin-bottom: 1rem; color: var(--primary);">Our Special Moments</h2>
+                <div class="images-grid">
+                    <img src="https://placehold.co/300x300" alt="Two friends laughing together at a beach sunset" class="memory-image">
+                    <img src="https://placehold.co/300x300" alt="Birthday celebration with balloons and cake" class="memory-image">
+                    <img src="https://placehold.co/300x300" alt="Group photo with smiles and silly poses" class="memory-image">
+                    <img src="https://placehold.co/300x300" alt="Celebratory dinner at a fancy restaurant" class="memory-image">
+                </div>
+            </div>
+            
+            <button class="interactive-btn" id="playSong" style="margin-top: 1.5rem;">ye song aapke liye mine beautiful click kro </button>
+            
+            <audio class="audio-player" id="birthdaySong" controls>
+                <source src="https://media1.vocaroo.com/mp3/13yMfLPZ0RbP" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <div class="hidden-content" id="personalMessage">
+                <h2 style="margin-bottom: 1rem; color: var(--primary);">A Special Message For You</h2>
+                <p>
+                    mere pyare se beta aapko ye photo thik to lgi na ye hmare bahut special din the jo mne isme dale h beta mujhe sach me ye din bahut yadd atte h or m daily inhe deakh kr bahut kush hota hu qki m jb bhi inko deakhta hu aapki bahut yaad aati h meri aakho me ashu aa jate h mere pyare se beta 
+                </p>
+                
+                <div id="typed-message" style="margin-top: 1rem; min-height: 100px; border: 1px dashed #ddd; padding: 1rem; border-radius: 10px;"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Made with ❤️ for your special day
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create confetti
+            createConfetti();
+            
+            // Show memories button
+            document.getElementById('showMemories').addEventListener('click', function() {
+                const content = document.getElementById('memoriesContent');
+                content.classList.toggle('show');
+                this.textContent = content.classList.contains('show') ? 'Hide Memories' : 'Show Memories';
+            });
+            
+            // Play song button
+            document.getElementById('playSong').addEventListener('click', function() {
+                const audioPlayer = document.getElementById('birthdaySong');
+                audioPlayer.style.display = 'block';
+                
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    this.textContent = 'Pause Song';
+                } else {
+                    audioPlayer.pause();
+                    this.textContent = 'Play Birthday Song';
+                }
+            });
+            
+            // Typewriter effect for personal message
+            setTimeout(() => {
+                const message = "meri caring wife rashi,\n\nbeta aapko pta h mne aapko bahut bar ek chij kahi h pta h vo kiya h betta mujhse nahi raha jata beta sacchi me bahut yaad aati h aapki daily sochta hu kb tk ese rahena hoga or fir sam ko sone ke liye jata hu to aapki bahut yaad aati h beta m kai bat wha jata hu jha hum milte the  or us gajah ko deakjhta hu to rona aa jata h pta nahi ye kb tk rahega abhi to aap 12th me ho or beta jldi se 12th kro lo or aache se pdai krna taki hum ek ho jaye beta mujhse wait nahi hota isliye ye bna raha hu vaise mujhe aapke short bal bahut aache lgte h m chahta hu aap short hairrakho baby chutting bahut pyare lgte h mujhe beta sacchi or ha suno beta aap bahut bimar hote ho to kuch ulta sidha mt khana nahi to m aapki bnd bja dunga otee or ha aache se nind liya kro mera baby oteee i hate you mere baccha\n\nWith all my heart,";
+                const element = document.getElementById('typed-message');
+                let i = 0;
+                
+                function typeWriter() {
+                    if (i < message.length) {
+                        element.innerHTML += message.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 30);
+                    }
+                }
+                
+                typeWriter();
+                document.getElementById('personalMessage').classList.add('show');
+            }, 1500);
+        });
+        
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#ffb8b8', '#ffd166', '#06d6a0', '#118ab2'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                document.body.appendChild(confetti);
+                
+                animateConfetti(confetti);
+            }
+        }
+        
+        function animateConfetti(element) {
+            const duration = Math.random() * 3 + 2;
+            const delay = Math.random() * 5;
+            
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transition = `all ${duration}s linear`;
+                element.style.top = '100vh';
+                
+                setTimeout(() => {
+                    element.remove();
+                }, duration * 1000);
+            }, delay * 1000);
+        }
+    </script>
+</body>
+</html>
+```
